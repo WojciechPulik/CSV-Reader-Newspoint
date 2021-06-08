@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<link href="/css/main.css" rel="stylesheet" />
+<title>Wyszukani po nazwisku</title>
+</head>
+<body>
+
+	<div align="center">
+		<div class="green_box">
+			<p>Pobierz plik CSV:</p>
+			<form enctype="multipart/form-data" method="post"
+				th:action="@{/uploadcsvfile}">
+				<input type="file" name="file" /> <input type="submit"
+					name="Pobierz plik" />
+			</form>
+		</div>
+	</div>
+
+	<div align="center">
+		<div class="green_box">
+			<p th:text="'Liczba wyszukanych użytkowników: ' + ${resultList.size()}"></p>
+		</div>
+	</div>
+	
+	<div align="center">
+		<div class="green_box">
+		<p>Wyszukaj po nazwisku:</p>
+			<form method="post"
+				th:action="@{/findbylastname}">
+				<input type="text" th:name="lastName" /> 
+				<input type="submit" name="Wyszukaj" />
+			</form>
+		</div>
+	</div>
+
+
+	<div align="center">
+		<div class="green_box">
+		<table border="2">
+			<tr>
+				<th>Id</th>
+				<th>Imię</th>
+				<th>Nazwisko</th>
+				<th>Data Urodzenia</th>
+				<th>Nr Telefonu</th>
+				<th>Usuń</th>
+			</tr>
+			<tr th:each="user : ${resultList}" th:object="${user}">
+				<td th:text="*{id}"></td>
+				<td th:text="*{getFirstName()}"></td>
+				<td th:text="*{getLastName()}"></td>
+				<td th:text="*{getBirthDate()}"></td>
+				<td th:text="*{getPhoneNumber()}"></td>
+				<td><a th:href="@{/removeuser/{id}(id=*{id})}">Usuń</a></td>
+			</tr>
+		</table>
+		</div>
+	</div>
+
+
+
+</body>
+</html>

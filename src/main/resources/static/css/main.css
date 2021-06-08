@@ -1,0 +1,31 @@
+ul{
+	list-style-type:none;
+}
+li{
+	list-style-type:none;
+}
+.green_box{
+	border:1px solid black;
+	background-color: #ddffdd;
+	width:60%;
+	padding:5px;
+	margin:5px;
+	font-weight:bold;
+}
+.pagination {
+	display: inline-block;
+	margin: 5px;
+}
+
+.pagination a {
+	color: black;
+	float: left;
+	padding: 5px 5px;
+	text-decoration: none;
+}
+
+.pagination a.active {
+	background-color: gray;
+	color: white;
+	border-radius: 2px;
+}

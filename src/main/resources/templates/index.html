@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<link href="/css/main.css" rel="stylesheet"/>
+<title>Strona główna</title>
+</head>
+<body>
+
+	<div align="center">
+		<div class="green_box">
+			<p>Pobierz plik CSV:</p>
+			<form enctype="multipart/form-data" method="post" th:action="@{/uploadcsvfile}">
+				<input type="file" name="file"/>
+				<input type="submit" name="Pobierz plik"/>
+			</form>
+		</div>
+	</div>
+
+
+</body>
+</html>

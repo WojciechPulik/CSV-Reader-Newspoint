@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<link href="/css/main.css" rel="stylesheet" />
+<title>Dane użytkowników</title>
+</head>
+<body>
+
+	<div align="center">
+		<div class="green_box">
+			<p>Pobierz plik CSV:</p>
+			<form enctype="multipart/form-data" method="post"
+				th:action="@{/uploadcsvfile}">
+				<input type="file" name="file" /> <input type="submit"
+					name="Pobierz plik" />
+			</form>
+		</div>
+	</div>
+
+	<div align="center">
+		<div class="green_box">
+			<p th:text="'Liczba wszystkich użytkowników: ' + ${totalUsers}"></p>
+		</div>
+	</div>
+	
+	<div align="center">
+		<div class="green_box">
+			<p>Najstarszy użytkownik z telefonem:</p>
+			<ul th:each="oldestUser : ${oldestWithPhone}">
+				<li th:text="${oldestUser.getFirstName()} + ' ' + ${oldestUser.getLastName()} + ' ' 
+				+ ${oldestUser.getBirthDate()} + ' ' + ${oldestUser.getPhoneNumber()}">Najstarszy użytkownik</li>
+			</ul>
+		</div>
+	</div>
+	
+	<div align="center">
+		<div class="green_box">
+		<p>Wyszukaj po nazwisku:</p>
+			<form method="post"
+				th:action="@{/findbylastname}">
+				<input type="text" th:name="lastName" /> 
+				<input type="submit" th:name="Wyszukaj" />
+			</form>
+		</div>
+	</div>'
+	
+
+
+	<div align="center">
+		<div class="green_box">
+		<table border="2">
+			<tr>
+				<th>Id</th>
+				<th>Imię</th>
+				<th>Nazwisko</th>
+				<th>Data Urodzenia</th>
+				<th>Nr Telefonu</th>
+				<th>Usuń</th>
+			</tr>
+			<tr th:each="user : ${usersPage}" th:object="${user}">
+				<td th:text="*{id}"></td>
+				<td th:text="*{getFirstName()}"></td>
+				<td th:text="*{getLastName()}"></td>
+				<td th:text="*{getBirthDate()}"></td>
+				<td th:text="*{getPhoneNumber()}"></td>
+				<td><a th:href="@{/removeuser/{id}(id=*{id})}">Usuń</a></td>
+			</tr>
+		</table>
+		</div>
+	</div>
+
+
+	<div align="center">
+		<div th:if="${usersPage.totalPages > 0}" class="pagination"
+			th:each="pageNumber : ${pageNumbers}">
+			<a
+				th:href="@{/userlist/(size=${usersPage.size}, page=${pageNumber})}"
+				th:text="${pageNumber}"
+				th:class="${pageNumber==usersPage.number + 1} ? active"></a>
+		</div>
+	</div>
+
+
+
+</body>
+</html>
